@@ -32,6 +32,12 @@ def set_categories(json_file_path, csv_file_path):
     
     cat = list(set(categories))
     columns = ['business_id'] + cat
+    print(len(cat))
+
+    i = 0
+    for c in cat:
+        print( str(i) + " - " + c)
+        i += 1
 
     with open(csv_file_path, 'wb+') as fout:
         csv_file = csv.writer(fout)
@@ -120,7 +126,7 @@ def get_row(line_contents, column_names):
             row.append('')
     return row
 
-def god_is_more_qntc(line_contents, categories):
+def god_is_more_qntc(line_contents, cats):
     """Return a csv compatible row given column names and a dict."""
     row = []
 
@@ -150,24 +156,18 @@ def god_is_more_qntc(line_contents, categories):
     # print(string)
 
     business_cat = bus_cats.split(',')
-    for great_category in categories:
+
+    for great_category in cats:
+        v = "0"
         for cat in business_cat:
             if great_category == cat:
                 v = "1"
-                if isinstance(line_value, unicode):
-                    row.append('{0}'.format(v.encode('utf-8')))
-                elif line_value is not None:
-                    row.append('{0}'.format(v))
-                else:
-                    row.append('')
-            else:
-                v = "0"
-                if isinstance(v, unicode):
-                    row.append('{0}'.format(v.encode('utf-8')))
-                elif line_value is not None:
-                    row.append('{0}'.format(v))
-                else:
-                    row.append('')
+        if isinstance(v, unicode):
+            row.append('{0}'.format(v.encode('utf-8')))
+        elif line_value is not None:
+            row.append('{0}'.format(v))
+        else:
+            row.append('')
 
     return row
 
