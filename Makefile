@@ -10,3 +10,8 @@ run:
 
 build:
 	docker build -t ml:mushrooms .
+
+
+json-parser:
+	docker build -t json-parser -f yelp.Dockerfile .
+	docker run --rm -v `pwd`:/app -it json-parser sh
