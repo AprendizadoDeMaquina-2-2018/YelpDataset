@@ -115,8 +115,9 @@ def get_row(line_contents, column_names):
                         line_contents,
                         column_name,
                         )
-        if(column_name == 'categories'):
-            categories.extend( line_value.split(',') )
+        if line_value:
+            if(column_name == 'categories'):
+                categories.extend( line_value.split(',') )
 
         if isinstance(line_value, unicode):
             row.append('{0}'.format(line_value.encode('utf-8')))
@@ -155,7 +156,11 @@ def god_is_more_qntc(line_contents, cats):
     # print(line_value)
     # print(string)
 
-    business_cat = bus_cats.split(',')
+    business_cat = []
+    if bus_cats:
+        business_cat = bus_cats.split(',')
+    else:
+        print("category not found")
 
     for great_category in cats:
         v = "0"
